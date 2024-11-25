@@ -14,6 +14,7 @@ namespace users.Controllers
         public AttachmentsController(IAttachmentsServices attachmentsService)
         {
             _attachmentsService = attachmentsService;
+
         }
 
         [HttpPost("create")]
@@ -21,7 +22,7 @@ namespace users.Controllers
         {
             if (model == null || string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.Path) || string.IsNullOrEmpty(model.DateUplode))
             {
-                return BadRequest("All fields are required.");
+                return BadRequest("All fields are required.empty not allowed");
             }
 
             DataTable result = _attachmentsService.CreateAttachment(model.Name, model.Path, model.DateUplode);
