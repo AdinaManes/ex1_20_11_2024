@@ -5,6 +5,8 @@ using Microsoft.OpenApi.Models;
 using System;
 using users.Models;
 using users.Repositoreis;
+using ex2.Services.Logger;
+using TasksApi.Services.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +27,15 @@ builder.Services.AddScoped<IProjectRepositoreis, ProjectRepositoreis>();
 builder.Services.AddScoped<IAttachmentsServices, AttachmentsServices>();
 builder.Services.AddScoped<IAttachmentsRepositoreis, AttachmentsRepositoreis>();
 
-builder.Services.AddScoped<ICangesServices, CangesServices>();
-builder.Services.AddScoped<IChangesRepositoreis, ChangesRepositoreis>();
+builder.Services.AddScoped<ILoggerService, ConsoleLoggerService>();
+
+builder.Services.AddScoped<DBLoggerService>();
+
+builder.Services.AddScoped<FileLoggerService>(provider =>
+    new FileLoggerService("D:\\hw-text1.txt")
+);
+
+builder.Services.AddScoped<TasksApi.Services.Logger.LoggerFactory>();
 
 builder.Services.AddSwaggerGen(c =>
 {
